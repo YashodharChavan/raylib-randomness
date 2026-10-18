@@ -5,16 +5,12 @@ function setup() {
     const world = {
         windowWidth: 500,
         windowHeight: 400,
-        pointCount: 100,
-        origin: {
-            x: 300,
-            y: 200,
-        },
-        radius: 50,
+        pointCount: 10,
+        radius: 100,
     };
 
     world.distances = generateRandomCoordinates(world, 0, world.radius);
-    world.angles = generateRandomCoordinates(world, 0, 360);
+    world.angles = generateRandomCoordinates(world, 0, 90);
 
     r.SetTraceLogLevel(r.LOG_NONE);
     r.InitWindow(
@@ -46,8 +42,8 @@ function generateRandom(start, end) {
 
 function drawPoints(world) {
     for (let i = 0; i < world.pointCount; i++) {
-        const posX = g.getXOnCircle(world.origin.x, world.distances[i], world.angles[i]);
-        const posY = g.getYOnCircle(world.origin.y, world.distances[i], world.angles[i]);
+        const posX = world.distances[i] * Math.cos(g.toRadians(world.angles[i]));
+        const posY = world.distances[i] * Math.sin(g.toRadians(world.angles[i]));
 
         r.DrawCircle(posX, posY, 5, r.WHITE);
     }
@@ -57,7 +53,7 @@ function draw(world) {
     r.BeginDrawing();
     r.ClearBackground(r.BLACK);
 
-    r.DrawCircleV(world.origin, world.radius, r.BLUE);
+    r.DrawCircleV({x: 0, y: 0}, world.radius, r.BLUE);
     drawPoints(world);
 
     r.EndDrawing();
