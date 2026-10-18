@@ -31,7 +31,7 @@ function generateRandom(end) {
 function drawNumberLine(world) {
     r.DrawLineEx({x: 0, y: world.origin.y}, {x: world.windowWidth, y: world.origin.y}, 2, r.WHITE);
     r.DrawCircle(world.origin.x, world.origin.y, 5, r.RED);
-    
+    r.DrawText("0", world.origin.x, world.origin.y, 5, r.WHITE);
 }
 
 function drawPoints(world) {
