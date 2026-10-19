@@ -5,8 +5,8 @@ function setup() {
     const world = {
         windowWidth: 500,
         windowHeight: 400,
-        pointCount: 10,
-        radius: 100,
+        pointCount: 100,
+        radius: 300,
     };
 
     world.distances = generateRandomCoordinates(world, 0, world.radius);
@@ -45,15 +45,15 @@ function drawPoints(world) {
         const posX = world.distances[i] * Math.cos(g.toRadians(world.angles[i]));
         const posY = world.distances[i] * Math.sin(g.toRadians(world.angles[i]));
 
-        r.DrawCircle(posX, posY, 5, r.WHITE);
+        r.DrawCircle(posX, posY, 5, r.YELLOW);
     }
 }
 
 function draw(world) {
     r.BeginDrawing();
-    r.ClearBackground(r.BLACK);
+    r.ClearBackground(r.BLUE);
 
-    r.DrawCircleV({x: 0, y: 0}, world.radius, r.BLUE);
+    r.DrawCircleLines(0, 0, world.radius, r.WHITE);
     drawPoints(world);
 
     r.EndDrawing();
