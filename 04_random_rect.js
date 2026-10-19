@@ -9,11 +9,12 @@ function setup() {
             x: 0,
             y: 0,
         },
-        end: {
-            x: 300,
-            y: 200,
-        },
     };
+
+    world.end = {
+        x: world.windowWidth,
+        y: world.windowHeight
+    }
 
     world.pointsX = generateRandomCoordinates(world, world.end.x);
     world.pointsY = generateRandomCoordinates(world, world.end.y);
@@ -51,12 +52,12 @@ function drawPoints(world) {
         const posX = world.pointsX[i];
         const posY = world.pointsY[i];
 
-        r.DrawCircle(posX, posY, 5, r.WHITE);
+        r.DrawCircle(posX, posY, 8, r.ColorAlpha(r.WHITE, 0.75));
     }
 }
 
 function drawRectangle(world) {
-    r.DrawRectangleV(world.start, world.end, r.RED);
+    r.DrawRectangleV(world.start, world.end, r.BLUE);
 }
 
 function draw(world) {
