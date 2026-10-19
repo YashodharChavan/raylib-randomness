@@ -4,7 +4,7 @@ function setup() {
     const world = {
         windowWidth: 500,
         windowHeight: 400,
-        pointCount: 1000,
+        pointCount: 100,
         rectangle: {
             x: 40,
             y: 50,
@@ -57,17 +57,18 @@ function drawPoints(world) {
         const posX = world.pointsX[i];
         const posY = world.pointsY[i];
 
-        r.DrawCircle(posX, posY, 5, r.WHITE);
+        r.DrawCircle(posX, posY, 5, r.ColorAlpha(r.WHITE, 0.75));
     }
 }
 
 function drawRectangle(world) {
-    r.DrawRectangleRec(world.rectangle, r.RED);
+    r.DrawRectangleLinesEx(world.rectangle, 3, r.WHITE);
+    // r.DrawRectangleRec(world.rectangle, r.RED);
 }
 
 function draw(world) {
     r.BeginDrawing();
-    r.ClearBackground(r.BLACK);
+    r.ClearBackground(r.BLUE);
 
     drawRectangle(world);
     drawPoints(world);
