@@ -4,7 +4,7 @@ function setup() {
     const world = {
         windowWidth: 500,
         windowHeight: 400,
-        pointCount: 1000,
+        pointCount: 10,
         start: {
             x: 50,
             y: 60,
@@ -19,6 +19,8 @@ function setup() {
         },
     };
 
+    world.points = generateRandomCoordinates(world);
+
     r.SetTraceLogLevel(r.LOG_NONE);
     r.InitWindow(
         world.windowWidth,
@@ -30,10 +32,18 @@ function setup() {
     return world;
 }
 
-function generateRandomCoordinates(count, start, end) {
+function generateRandomCoordinates(world) {
     const randomPoints = [];
-    for (let i = 0; i < count; i++) {
-        randomPoints.push(generateRandom(start, end));
+    for (let i = 0; i < world.pointCount; i++) {
+        const s = Math.random();
+        const t = Math.random();
+
+        const point = {
+            x: world.start.x + s * world.u.x + t * world.v.x,
+            y: world.start.y + s * world.u.y + t * world.v.y,
+        }
+
+        randomPoints.push(point);
     }
 
     return randomPoints;
@@ -43,21 +53,13 @@ function isRunning() {
     return !r.WindowShouldClose();
 }
 
-function generateRandom(start, end) {
-    return start + Math.floor(Math.random() * end);
-}
-
 function drawPoints(world) {
     for (let i = 0; i < world.pointCount; i++) {
-        const posX = world.pointsX[i];
-        const posY = world.pointsY[i];
+        const posX = world.points[i].x;
+        const posY = world.points[i].y;
 
-        r.DrawCircle(posX, posY, 5, r.WHITE);
+        r.DrawCircle(posX, posY, 5, r.YELLOW);
     }
-}
-
-function drawRectangle(world) {
-    r.DrawRectangleRec(world.rectangle, r.RED);
 }
 
 function drawParellogram(world) {
@@ -66,15 +68,19 @@ function drawParellogram(world) {
     const pointC = r.Vector2Add(world.start, world.v);
     const pointD = r.Vector2Add(world.start, r.Vector2Add(world.u, world.v));
 
-    r.DrawTriangle(pointB, pointA, pointC, r.RED);
-    r.DrawTriangle(pointD, pointB, pointC, r.RED);
+    r.DrawLineEx(pointA, pointB, 2, r.WHITE);
+    r.DrawLineEx(pointB, pointD, 2, r.WHITE);
+    r.DrawLineEx(pointC, pointD, 2, r.WHITE);
+    r.DrawLineEx(pointC, pointA, 2, r.WHITE);
 }
 
 function draw(world) {
     r.BeginDrawing();
-    r.ClearBackground(r.BLACK);
+    r.ClearBackground(r.BLUE);
 
     drawParellogram(world);
+
+    drawPoints(world);
 
     r.EndDrawing();
 }
