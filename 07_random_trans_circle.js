@@ -10,7 +10,7 @@ function setup() {
             x: 300,
             y: 200,
         },
-        radius: 50,
+        radius: 100,
     };
 
     world.distances = generateRandomCoordinates(world, 0, world.radius);
@@ -49,15 +49,15 @@ function drawPoints(world) {
         const posX = g.getXOnCircle(world.origin.x, world.distances[i], world.angles[i]);
         const posY = g.getYOnCircle(world.origin.y, world.distances[i], world.angles[i]);
 
-        r.DrawCircle(posX, posY, 5, r.WHITE);
+        r.DrawCircle(posX, posY, 5, r.YELLOW);
     }
 }
 
 function draw(world) {
     r.BeginDrawing();
-    r.ClearBackground(r.BLACK);
+    r.ClearBackground(r.BLUE);
 
-    r.DrawCircleV(world.origin, world.radius, r.BLUE);
+    r.DrawCircleLines(world.origin.x, world.origin.y, world.radius, r.WHITE);
     drawPoints(world);
 
     r.EndDrawing();
