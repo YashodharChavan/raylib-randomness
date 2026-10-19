@@ -7,23 +7,13 @@ function setup() {
         pointCount: 1000,
     };
 
-    world.pointsX = generateRandomCoordinates(world, world.windowWidth);
-    world.pointsY = generateRandomCoordinates(world, world.windowHeight);
+    world.pointX = generateRandom(world.windowWidth);
 
     r.SetTraceLogLevel(r.LOG_NONE);
     r.InitWindow(world.windowWidth, world.windowHeight, "Random Position");
     r.SetTargetFPS(30);
 
     return world;
-}
-
-function generateRandomCoordinates(world, end) {
-    const randomPoints = []
-    for(let i=0; i<world.pointCount; i++) {
-        randomPoints.push(generateRandom(end));
-    }
-
-    return randomPoints
 }
 
 function isRunning() {
@@ -36,16 +26,23 @@ function generateRandom(end) {
 
 function drawPoints(world) {
     for(let i=0; i<world.pointCount; i++) {
-        const posX = world.pointsX[i];
-        const posY = world.pointsY[i];
+        const start = {
+            x: world.pointX,
+            y: 0
+        }
 
-        r.DrawCircle(posX, posY, 5, r.WHITE);
+        const end = {
+            x: world.pointX,
+            y: world.windowHeight
+        }
+
+        r.DrawLineEx(start, end, 2, r.WHITE);
     }
 }
 
 function draw(world) {
     r.BeginDrawing();
-    r.ClearBackground(r.BLACK);
+    r.ClearBackground(r.BLUE);
     
     drawPoints(world);
 
