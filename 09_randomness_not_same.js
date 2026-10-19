@@ -10,7 +10,7 @@ function setup() {
     world.pointsX = generateRandomCoordinates(world, world.windowWidth);
 
     r.SetTraceLogLevel(r.LOG_NONE);
-    r.InitWindow(world.windowWidth, world.windowHeight, "Random Position");
+    r.InitWindow(world.windowWidth, world.windowHeight, "Randomness not uniform");
     r.SetTargetFPS(30);
 
     return world;
